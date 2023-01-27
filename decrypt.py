@@ -52,24 +52,14 @@ def key_mixing(subkey,w_num):
     for i in range(0,16):
         xor_[i] = subkey[i] ^ w_num[i]
     
-    sbox = [[0 for i in range(4)] for j in range(4)]
-
-    for i in range(0,4):
-        for j in range(0,4):
-            sbox[i][j] = xor_[4*i + j]
     
-    print("sbox")
-    print(sbox)
-    return sbox
+    return xor_
 
 
 
-def key_permutation(sbox):
-    permute = list()
-    for i in range(0,4):
-        for j in range(0,4):
-            permute.append(sbox[j][i])
-    
+def key_permutation(xor_):
+    permute = [xor_[0],xor_[4],xor_[8],xor_[12],xor_[1],xor_[5],xor_[9],xor_[13],xor_[2],xor_[6],xor_[10],xor_[14],xor_[3],xor_[7],xor_[11],xor_[15]]
+     
     return permute
 
 
@@ -80,31 +70,33 @@ def func(round,w_num):
     print(round)
     print('w_num')
     print(w_num)
-    if round == 1:
+    if round == 5:
+        
         subkey = list()
         for i in range(0,16):
             subkey.append(key_bit[i])
         
         print('subkey')
         print(subkey)
-        sbox = key_mixing(subkey,w_num)
-        permut = key_permutation(sbox)
+        permut = key_permutation(w_num)
+        xor_ = key_mixing(subkey,permut)
+        
         print('permut')
         print(permut)
-        return permut
+        return xor_
     
-    elif round == 2:
+    elif round == 4:
         subkey = list()
         for i in range(4,20):
             subkey.append(key_bit[i])
         
         print('subkey')
         print(subkey)
-        sbox = key_mixing(subkey,w_num)
-        permut = key_permutation(sbox)
+        permut = key_permutation(w_num)
+        xor_ = key_mixing(subkey,permut)
         print('permut')
         print(permut)
-        return permut
+        return xor_
 
     elif round == 3:
         subkey = list()
@@ -113,32 +105,30 @@ def func(round,w_num):
         
         print('subkey')
         print(subkey)
-        sbox = key_mixing(subkey,w_num)
-        permut = key_permutation(sbox)
+        permut = key_permutation(w_num)
+        xor_ = key_mixing(subkey,permut)
         print('permut')
         print(permut)
-        return permut
+        return xor_
 
-    elif round == 4:
+    elif round == 2:
         subkey = list()
         for i in range(12,28):
             subkey.append(key_bit[i])
         
         print('subkey')
         print(subkey)
-        sbox = key_mixing(subkey,w_num)
-        permut = list()
+        xor_ = key_mixing(subkey,w_num)
+        permut = xor_
 
-        for i in range(0,4):
-            for j in range(0,4):
-                permut.append(sbox[i][j])
+        
         
         print('permut')
         print(permut)
         return permut
 
     
-    elif round == 5:
+    elif round == 1:
         subkey = list()
         for i in range(16,32):
             subkey.append(key_bit[i])
@@ -156,7 +146,7 @@ def func(round,w_num):
 
 
 if __name__ == "__main__":
-    w = "aa"
+    w = "F¶"
 
     print('key')
     print(key)
