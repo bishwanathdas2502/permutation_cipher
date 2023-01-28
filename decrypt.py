@@ -146,7 +146,7 @@ def func(round,w_num):
 
 
 if __name__ == "__main__":
-    w = "F¶"
+    w = "Sª"
 
     print('key')
     print(key)

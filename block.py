@@ -52,24 +52,14 @@ def key_mixing(subkey,w_num):
     for i in range(0,16):
         xor_[i] = subkey[i] ^ w_num[i]
     
-    sbox = [[0 for i in range(4)] for j in range(4)]
-
-    for i in range(0,4):
-        for j in range(0,4):
-            sbox[i][j] = xor_[4*i + j]
     
-    print("sbox")
-    print(sbox)
-    return sbox
+    return xor_
 
 
 
-def key_permutation(sbox):
-    permute = list()
-    for i in range(0,4):
-        for j in range(0,4):
-            permute.append(sbox[j][i])
-    
+def key_permutation(xor_):
+    permute = [xor_[0],xor_[4],xor_[8],xor_[12],xor_[1],xor_[5],xor_[9],xor_[13],xor_[2],xor_[6],xor_[10],xor_[14],xor_[3],xor_[7],xor_[11],xor_[15]]
+     
     return permute
 
 
@@ -87,8 +77,8 @@ def func(round,w_num):
         
         print('subkey')
         print(subkey)
-        sbox = key_mixing(subkey,w_num)
-        permut = key_permutation(sbox)
+        xor_ = key_mixing(subkey,w_num)
+        permut = key_permutation(xor_)
         print('permut')
         print(permut)
         return permut
@@ -100,8 +90,8 @@ def func(round,w_num):
         
         print('subkey')
         print(subkey)
-        sbox = key_mixing(subkey,w_num)
-        permut = key_permutation(sbox)
+        xor_ = key_mixing(subkey,w_num)
+        permut = key_permutation(xor_)
         print('permut')
         print(permut)
         return permut
@@ -113,8 +103,8 @@ def func(round,w_num):
         
         print('subkey')
         print(subkey)
-        sbox = key_mixing(subkey,w_num)
-        permut = key_permutation(sbox)
+        xor_ = key_mixing(subkey,w_num)
+        permut = key_permutation(xor_)
         print('permut')
         print(permut)
         return permut
@@ -126,12 +116,12 @@ def func(round,w_num):
         
         print('subkey')
         print(subkey)
-        sbox = key_mixing(subkey,w_num)
-        permut = list()
+        permut = key_mixing(subkey,w_num)
+        # permut = list()
 
-        for i in range(0,4):
-            for j in range(0,4):
-                permut.append(sbox[i][j])
+        # for i in range(0,4):
+        #     for j in range(0,4):
+        #         permut.append(sbox[i][j])
         
         print('permut')
         print(permut)
@@ -156,7 +146,7 @@ def func(round,w_num):
 
 
 if __name__ == "__main__":
-    w = "aa"
+    w = "to"
 
     print('key')
     print(key)
